@@ -2,7 +2,6 @@ package com.sbilife.quatify
 
 import android.content.Context
 import android.util.Log.d
-import dagger.Module
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -17,7 +16,7 @@ interface QuoteRepo {
     fun getAllQuote(mContext: Context): MutableList<String>
 }
 
-class SQLRepo @Inject constructor() : QuoteRepo {
+class SQLRepo : QuoteRepo {
     override fun saveQuote(strQuote: String) {
         d(TAG, "$strQuote saved in DB")
     }
@@ -47,7 +46,7 @@ class SQLRepo @Inject constructor() : QuoteRepo {
 
 }
 
-class FirebaseRepo : QuoteRepo {
+class FirebaseRepo @Inject constructor() : QuoteRepo {
 
     override fun saveQuote(strQuote: String) {
         d(TAG, "$strQuote saved in Firebase")
@@ -55,7 +54,7 @@ class FirebaseRepo : QuoteRepo {
 
     override fun getAllQuote(mContext: Context): MutableList<String> {
         d(TAG, "get list from Firebase")
-        return mutableListOf<String>()
+        return mutableListOf()
     }
 
 

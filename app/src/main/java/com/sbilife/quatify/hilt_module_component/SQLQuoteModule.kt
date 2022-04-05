@@ -10,7 +10,7 @@ import dagger.hilt.android.components.ActivityComponent
 
 @InstallIn(ActivityComponent::class)
 @Module
-class QuoteModule {
+class SQLQuoteModule {
 
     @Provides
     fun provideSQLQuoterepo(): QuoteRepo {
