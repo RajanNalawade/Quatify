@@ -9,6 +9,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     @Inject
+    @Named("sql")
     lateinit var mQuoteRepo: QuoteRepo
 
     override fun onCreate(savedInstanceState: Bundle?) {

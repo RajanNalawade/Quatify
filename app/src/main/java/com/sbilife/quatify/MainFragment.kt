@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.sbilife.quatify.custom_qualifiers.FirebaseQualifier
 import com.sbilife.quatify.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -13,6 +14,8 @@ import javax.inject.Inject
 class MainFragment : Fragment() {
 
     @Inject
+    //to avoid typo in @Named() annotation use custom qualifiers
+    @FirebaseQualifier
     lateinit var mQuoteRepo: QuoteRepo
 
     private var _binding: FragmentMainBinding? = null

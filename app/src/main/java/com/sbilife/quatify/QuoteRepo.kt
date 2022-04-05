@@ -22,6 +22,7 @@ class SQLRepo @Inject constructor() : QuoteRepo {
     }
 
     override fun getAllQuote(mContext: Context): MutableList<String> {
+        d(TAG, "getting data from SQL")
         val quotes: MutableList<String> = mutableListOf()
         var bufferReader: BufferedReader? = null
 
@@ -48,7 +49,7 @@ class SQLRepo @Inject constructor() : QuoteRepo {
 class FirebaseRepo : QuoteRepo {
 
     override fun saveQuote(strQuote: String) {
-        d(TAG, strQuote)
+        d(TAG, "$strQuote in firebase")
     }
 
     override fun getAllQuote(mContext: Context): MutableList<String> {
