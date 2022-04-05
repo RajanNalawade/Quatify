@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.listOfQoate.adapter = QuoteAdapter(mQuoteRepo.getAllQuote(this))
     }
 
-    private fun getAllQuote(): MutableList<String> {
+    /*private fun getAllQuote(): MutableList<String> {
         val quotes: MutableList<String> = mutableListOf()
         var bufferReader: BufferedReader? = null
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             bufferReader?.close()
         }
         return quotes
-    }
+    }*/
 
 
 }

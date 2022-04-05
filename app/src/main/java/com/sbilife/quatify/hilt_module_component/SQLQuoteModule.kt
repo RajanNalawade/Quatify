@@ -2,7 +2,6 @@ package com.sbilife.quatify.hilt_module_component
 
 import com.sbilife.quatify.FirebaseRepo
 import com.sbilife.quatify.QuoteRepo
-import com.sbilife.quatify.SQLRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +13,6 @@ class SQLQuoteModule {
 
     @Provides
     fun provideSQLQuoterepo(): QuoteRepo {
-        return SQLRepo()
+        return FirebaseRepo()
     }
 }

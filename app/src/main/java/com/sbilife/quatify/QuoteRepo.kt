@@ -9,16 +9,16 @@ import javax.inject.Inject
 
 const val TAG = "QuoteRepo"
 
-
 interface QuoteRepo {
     fun saveQuote(strQuote: String)
 
     fun getAllQuote(mContext: Context): MutableList<String>
 }
 
-class SQLRepo : QuoteRepo {
+class SQLRepo @Inject constructor() : QuoteRepo {
+
     override fun saveQuote(strQuote: String) {
-        d(TAG, "$strQuote saved in DB")
+        d(TAG, strQuote)
     }
 
     override fun getAllQuote(mContext: Context): MutableList<String> {
@@ -43,19 +43,34 @@ class SQLRepo : QuoteRepo {
         }
         return quotes
     }
-
 }
 
-class FirebaseRepo @Inject constructor() : QuoteRepo {
+class FirebaseRepo : QuoteRepo {
 
     override fun saveQuote(strQuote: String) {
-        d(TAG, "$strQuote saved in Firebase")
+        d(TAG, strQuote)
     }
 
     override fun getAllQuote(mContext: Context): MutableList<String> {
-        d(TAG, "get list from Firebase")
-        return mutableListOf()
+        val quotes: MutableList<String> = mutableListOf()
+        var bufferReader: BufferedReader? = null
+
+        try {
+            bufferReader = BufferedReader(
+                InputStreamReader(
+                    mContext.assets.open("all_quotes.txt"),
+                    "UTF-8"
+                )
+            )
+            var line: String?
+            while ((bufferReader.readLine()
+                    .also { line = it }) != null
+            ) line?.let { quotes.add(it) }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+        } finally {
+            bufferReader?.close()
+        }
+        return quotes
     }
-
-
 }
