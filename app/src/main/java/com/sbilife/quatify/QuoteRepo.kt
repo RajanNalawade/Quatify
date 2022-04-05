@@ -1,6 +1,8 @@
 package com.sbilife.quatify
 
 import android.content.Context
+import android.util.Log.d
+import dagger.Module
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -8,13 +10,19 @@ import javax.inject.Inject
 
 const val TAG = "QuoteRepo"
 
-class QuoteRepo @Inject constructor(private val mLoggerService: LoggerService) {
 
-    fun saveQuote(strQuote: String) {
-        mLoggerService.logService(strQuote)
+interface QuoteRepo {
+    fun saveQuote(strQuote: String)
+
+    fun getAllQuote(mContext: Context): MutableList<String>
+}
+
+class SQLRepo @Inject constructor() : QuoteRepo {
+    override fun saveQuote(strQuote: String) {
+        d(TAG, "$strQuote saved in DB")
     }
 
-    fun getAllQuote(mContext: Context): MutableList<String> {
+    override fun getAllQuote(mContext: Context): MutableList<String> {
         val quotes: MutableList<String> = mutableListOf()
         var bufferReader: BufferedReader? = null
 
@@ -36,4 +44,19 @@ class QuoteRepo @Inject constructor(private val mLoggerService: LoggerService) {
         }
         return quotes
     }
+
+}
+
+class FirebaseRepo : QuoteRepo {
+
+    override fun saveQuote(strQuote: String) {
+        d(TAG, "$strQuote saved in Firebase")
+    }
+
+    override fun getAllQuote(mContext: Context): MutableList<String> {
+        d(TAG, "get list from Firebase")
+        return mutableListOf<String>()
+    }
+
+
 }
