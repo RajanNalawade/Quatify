@@ -3,6 +3,7 @@
     package="com.sbilife.quatify">
 
     <application
+        android:name=".QuoteApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_quote_logo"
         android:label="@string/app_name"

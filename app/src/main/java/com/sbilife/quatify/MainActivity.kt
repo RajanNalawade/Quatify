@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sbilife.quatify.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     // view binding for the activity
@@ -17,6 +20,9 @@ class MainActivity : AppCompatActivity() {
     // throws error if name is null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var mQuoteRepo: QuoteRepo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
@@ -25,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.listOfQoate.layoutManager = LinearLayoutManager(this)
 
-        binding.listOfQoate.adapter = QuoteAdapter(getAllQuote())
+        binding.listOfQoate.adapter = QuoteAdapter(mQuoteRepo.getAllQuote(this))
     }
 
     private fun getAllQuote(): MutableList<String> {
@@ -40,13 +46,13 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             var line: String?
-            while ((bufferReader.readLine().also { line = it }) != null) line?.let { quotes.add(it) }
+            while ((bufferReader.readLine()
+                    .also { line = it }) != null
+            ) line?.let { quotes.add(it) }
         } catch (ex: IOException) {
             ex.printStackTrace()
         } finally {
-            if (bufferReader != null) {
-                bufferReader.close()
-            }
+            bufferReader?.close()
         }
         return quotes
     }

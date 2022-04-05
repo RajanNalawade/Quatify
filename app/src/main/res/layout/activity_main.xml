@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,18 +8,41 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Quotify"
-        android:gravity="center"
         android:background="#BB86FC"
+        android:gravity="center"
+        android:text="Quotify"
         android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textSize="24sp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfQoate"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listOfQoate"/>
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintVertical_weight="7"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-</LinearLayout>
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.sbilife.quatify.MainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintVertical_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listOfQoate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
